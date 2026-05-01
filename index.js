@@ -1,9 +1,30 @@
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
+/* FAQ accordion */
+const faqQuestions = document.querySelectorAll(".faq-question");
+
+faqQuestions.forEach((question) => {
+  question.addEventListener("click", () => {
+    question.classList.toggle("active");
+
+    const answer = question.nextElementSibling;
+
+    if (answer.style.maxHeight) {
+      answer.style.maxHeight = null;
+    } else {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+  });
+});
+
+/* Pop-up animation only once */
 const animatedElements = document.querySelectorAll(`
   .hero-content,
-  .hero-content .small-title,
-  .hero-content h1,
-  .hero-content p,
-  .hero-buttons,
   .intro,
   .intro h2,
   .intro p,
@@ -30,16 +51,12 @@ const animatedElements = document.querySelectorAll(`
   .memory p,
   .memory .btn,
   .faq-item,
-  .faq-question,
-  .faq-answer p,
-  footer,
-  .footer-logo,
-  footer p
+  footer
 `);
 
 animatedElements.forEach((element, index) => {
   element.classList.add("fade-up");
-  element.style.transitionDelay = `${Math.min(index * 0.03, 0.35)}s`;
+  element.style.transitionDelay = `${Math.min(index * 0.025, 0.3)}s`;
 });
 
 const revealOnScroll = new IntersectionObserver(
@@ -47,7 +64,6 @@ const revealOnScroll = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
-
         observer.unobserve(entry.target);
       }
     });
