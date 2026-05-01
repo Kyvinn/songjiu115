@@ -1,79 +1,90 @@
-document.getElementById('tunnel').addEventListener('click', () => {
-  const tunnelText = document.querySelector('.tunnel-text');
-  const background = document.querySelector('.background');
-  const tunnel = document.getElementById('tunnel');
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
 
-  tunnelText.style.transform = 'scale(0.1)';
-  tunnelText.style.opacity = '0';
-
-  background.style.opacity = '0.1';
-
-  setTimeout(() => {
-    tunnel.style.display = 'none';
-    document.getElementById('website').classList.remove('hidden');
-    document.body.style.overflow = 'auto';
-    document.documentElement.style.overflow = 'auto';
-    window.scrollTo(0, 0);
-    AOS.init();
-  }, 1500);
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
 });
 
-  document.addEventListener("DOMContentLoaded", () => {
-  const boxes = document.querySelectorAll(".box");
+const faqQuestions = document.querySelectorAll(".faq-question");
 
-  const updatePositions = () => {
-    boxes.forEach((box) => {
-      const position = box.dataset.position;
-      box.classList.remove("left", "middle", "right");
-      box.classList.add(position);
-    });
-  };
+faqQuestions.forEach((question) => {
+  question.addEventListener("click", () => {
+    question.classList.toggle("active");
 
-  boxes.forEach((box) => {
-    box.addEventListener("click", () => {
-      const clickedPosition = box.dataset.position;
+    const answer = question.nextElementSibling;
 
-      if (clickedPosition === "left") {
-        boxes.forEach((b) => {
-          if (b.dataset.position === "left") b.dataset.position = "middle";
-          else if (b.dataset.position === "middle") b.dataset.position = "right";
-          else if (b.dataset.position === "right") b.dataset.position = "left";
-        });
-      } else if (clickedPosition === "right") {
-        boxes.forEach((b) => {
-          if (b.dataset.position === "right") b.dataset.position = "middle";
-          else if (b.dataset.position === "middle") b.dataset.position = "left";
-          else if (b.dataset.position === "left") b.dataset.position = "right";
-        });
-      }
-
-      updatePositions();
-    });
+    if (answer.style.maxHeight) {
+      answer.style.maxHeight = null;
+    } else {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
   });
-
-  updatePositions();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const webhideElements = document.querySelectorAll(".webhide");
+/* Pop-up animation when elements enter the screen */
+const animatedElements = document.querySelectorAll(`
+  .hero-content,
+  .hero-content .small-title,
+  .hero-content h1,
+  .hero-content p,
+  .hero-buttons,
+  .intro,
+  .intro h2,
+  .intro p,
+  .section-heading,
+  .section-heading p,
+  .section-heading h2,
+  .detail-card,
+  .detail-card .icon,
+  .detail-card h3,
+  .detail-card p,
+  .reason,
+  .reason-text,
+  .reason-text .small-title,
+  .reason-text h2,
+  .reason-text p,
+  .reason-text li,
+  .reason-text .btn,
+  .reason-image,
+  .program-card,
+  .program-card h3,
+  .program-card p,
+  .memory,
+  .memory h2,
+  .memory p,
+  .memory .btn,
+  .faq-item,
+  .faq-question,
+  .faq-answer p,
+  footer,
+  .footer-logo,
+  footer p
+`);
 
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const animationType = entry.target.dataset.animate;
+animatedElements.forEach((element, index) => {
+  element.classList.add("fade-up");
 
-          // Trigger animation
-          entry.target.classList.add(animationType);
-          entry.target.style.opacity = "1";
+  /*
+    Small delay so elements do not all appear at exactly the same time.
+    This makes the website feel smoother and more professional.
+  */
+  element.style.transitionDelay = `${Math.min(index * 0.03, 0.35)}s`;
+});
 
-          // Stop observing the element to prevent retriggering
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
+const revealOnScroll = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  },
+  {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px",
+  }
+);
 
-  webhideElements.forEach((el) => observer.observe(el));
+animatedElements.forEach((element) => {
+  revealOnScroll.observe(element);
 });
