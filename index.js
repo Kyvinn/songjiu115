@@ -5,7 +5,6 @@ menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("show");
 });
 
-/* FAQ accordion */
 const faqQuestions = document.querySelectorAll(".faq-question");
 
 faqQuestions.forEach((question) => {
@@ -22,7 +21,6 @@ faqQuestions.forEach((question) => {
   });
 });
 
-/* Pop-up animation only once */
 const animatedElements = document.querySelectorAll(`
   .hero-content,
   .intro,
@@ -50,6 +48,14 @@ const animatedElements = document.querySelectorAll(`
   .memory h2,
   .memory p,
   .memory .btn,
+  .signup,
+  .signup-text,
+  .signup-badge,
+  .signup-text h2,
+  .signup-text p,
+  .signup-action,
+  .signup-action .btn,
+  .signup-action small,
   .faq-item,
   footer
 `);

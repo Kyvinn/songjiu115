@@ -6,6 +6,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 120px;
 }
 
 body {
@@ -117,7 +118,7 @@ a {
 
 .hero {
   min-height: 92vh;
-  background-image: url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=80");
+  background-image: url(./assets/bg.jpg);
   background-position: center;
   background-size: cover;
   position: relative;
@@ -126,6 +127,13 @@ a {
   padding: 0 7%;
   margin-top: 76px;
   animation: heroZoom 1.3s ease;
+}
+
+@media (max-width: 780px) {
+  .hero {
+    background-image: url(./assets/bg_mobile.jpg);
+    background-position: center;
+  }
 }
 
 @keyframes heroZoom {
@@ -501,6 +509,110 @@ main {
   max-width: 720px;
   margin: 0 auto 30px;
   color: #d8cec2;
+}
+
+.signup {
+  margin: 70px 7%;
+  padding: 42px 48px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(232, 184, 109, 0.16);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  display: grid;
+  grid-template-columns: 1.5fr auto;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(232, 184, 109, 0.05),
+    transparent 35%,
+    transparent 70%,
+    rgba(216, 119, 128, 0.05)
+  );
+  pointer-events: none;
+}
+
+.signup-text,
+.signup-action {
+  position: relative;
+  z-index: 2;
+}
+
+.signup-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: rgba(232, 184, 109, 0.12);
+  border: 1px solid rgba(232, 184, 109, 0.2);
+  color: #e8b86d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.signup-text h2 {
+  font-size: 2.3rem;
+  color: #fff7ec;
+  margin-bottom: 12px;
+}
+
+.signup-text p {
+  color: #c7baad;
+  max-width: 700px;
+}
+
+.signup-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  min-width: 230px;
+}
+
+.signup-action .btn {
+  white-space: nowrap;
+  padding: 16px 28px;
+}
+
+.signup-action small {
+  color: #9f978d;
+  font-size: 0.9rem;
+  text-align: right;
+  max-width: 220px;
+}
+
+@media (max-width: 780px) {
+  .signup {
+    grid-template-columns: 1fr;
+    padding: 34px 28px;
+    gap: 22px;
+  }
+
+  .signup-text h2 {
+    font-size: 2rem;
+  }
+
+  .signup-action {
+    align-items: flex-start;
+  }
+
+  .signup-action small {
+    text-align: left;
+    max-width: 100%;
+  }
 }
 
 .faq {
