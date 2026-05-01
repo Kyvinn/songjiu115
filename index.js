@@ -1,27 +1,3 @@
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-});
-
-const faqQuestions = document.querySelectorAll(".faq-question");
-
-faqQuestions.forEach((question) => {
-  question.addEventListener("click", () => {
-    question.classList.toggle("active");
-
-    const answer = question.nextElementSibling;
-
-    if (answer.style.maxHeight) {
-      answer.style.maxHeight = null;
-    } else {
-      answer.style.maxHeight = answer.scrollHeight + "px";
-    }
-  });
-});
-
-/* Pop-up animation when elements enter the screen */
 const animatedElements = document.querySelectorAll(`
   .hero-content,
   .hero-content .small-title,
@@ -63,19 +39,16 @@ const animatedElements = document.querySelectorAll(`
 
 animatedElements.forEach((element, index) => {
   element.classList.add("fade-up");
-
-  /*
-    Small delay so elements do not all appear at exactly the same time.
-    This makes the website feel smoother and more professional.
-  */
   element.style.transitionDelay = `${Math.min(index * 0.03, 0.35)}s`;
 });
 
 const revealOnScroll = new IntersectionObserver(
-  (entries) => {
+  (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
+
+        observer.unobserve(entry.target);
       }
     });
   },
